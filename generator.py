@@ -39,7 +39,10 @@ def generator(mri_root, l_end=10):
                 mri_array = sitk.GetArrayFromImage(mri)
                 mri_single_array = mri_array[0, ...]
 
-                X_train.append(np.expand_dims(mri_single_array, axis=-1))
-                Y_train.append(np.expand_dims(mask_single_array, axis=-1))
+                mask_1 = cv2.resize(mask_single_array, (128, 128), interpolation=cv2.INTER_CUBIC)
+                mri_1 = cv2.resize(mri_single_array, (128, 128), interpolation=cv2.INTER_CUBIC)
+
+                X_train.append(np.expand_dims(mri_1, axis=-1))
+                Y_train.append(np.expand_dims(mask_1, axis=-1))
 
     return X_train, Y_train
