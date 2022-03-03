@@ -18,7 +18,7 @@ def train_dataloader(TRAIN_PATH, train_ids, dir_path = '', IMG_CHANNELS=3, IMG_H
         img = resize(img, (IMG_HEIGHT, IMG_WIDTH), mode='constant', preserve_range=True)
 
         # Append image to numpy array for train dataset
-        X_train[n] = img
+        X_train[n] = img.astype('uint8')
 
         # Read corresponding mask files iteratively
         mask = np.zeros((IMG_HEIGHT, IMG_WIDTH, 1), dtype=np.bool)
