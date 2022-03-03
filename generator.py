@@ -6,7 +6,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 
-def generator(mri_root, l_end=10):
+def generator(mri_root, l_start=0, l_end=10):
 
     X_train = []
     Y_train = []
@@ -22,7 +22,7 @@ def generator(mri_root, l_end=10):
     if '.DS_Store' in p_list:
         p_list.remove('.DS_Store')
 
-    for i, id in enumerate(p_list[:l_end]):
+    for i, id in enumerate(p_list[l_start:l_end]):
         p_path = os.path.join(mri_root, id)
         mask_file = os.path.join(p_path, 'N' + id + '.nii')
         mask = sitk.ReadImage(mask_file)
