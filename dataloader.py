@@ -5,8 +5,7 @@ from skimage.transform import resize
 from tqdm import tqdm
 
 
-def train_dataloader(TRAIN_PATH, train_ids, dir_path = '', IMG_CHANNELS=3, IMG_HEIGHT=128, IMG_WIDTH=128):
-
+def train_dataloader(TRAIN_PATH, train_ids, dir_path='', IMG_CHANNELS=3, IMG_HEIGHT=128, IMG_WIDTH=128):
     X_train = np.zeros((len(train_ids), IMG_HEIGHT, IMG_WIDTH, IMG_CHANNELS), dtype=np.uint8)
     Y_train = np.zeros((len(train_ids), IMG_HEIGHT, IMG_WIDTH, 1), dtype=np.bool)
 
@@ -15,10 +14,10 @@ def train_dataloader(TRAIN_PATH, train_ids, dir_path = '', IMG_CHANNELS=3, IMG_H
         # Read image files iteratively
         path = TRAIN_PATH + id_
         img = imread(dir_path + path + '/images/' + id_ + '.png')[:, :, :IMG_CHANNELS]
-        img = resize(img, (IMG_HEIGHT, IMG_WIDTH), mode='constant', preserve_range=True)
+        # img = resize(img, (IMG_HEIGHT, IMG_WIDTH), mode='constant', preserve_range=True)
 
         # Append image to numpy array for train dataset
-        X_train[n] = img.astype('uint8')
+        X_train[n] = img
 
         # Read corresponding mask files iteratively
         mask = np.zeros((IMG_HEIGHT, IMG_WIDTH, 1), dtype=np.bool)
@@ -41,7 +40,7 @@ def train_dataloader(TRAIN_PATH, train_ids, dir_path = '', IMG_CHANNELS=3, IMG_H
         return X_train, Y_train
 
 
-def test_dataloder(TEST_PATH, test_ids, dir_path = '', IMG_CHANNELS=3, IMG_HEIGHT=128, IMG_WIDTH=128):
+def test_dataloder(TEST_PATH, test_ids, dir_path='', IMG_CHANNELS=3, IMG_HEIGHT=128, IMG_WIDTH=128):
     # Get and resize test images
     X_test = np.zeros((len(test_ids), IMG_HEIGHT, IMG_WIDTH, IMG_CHANNELS), dtype=np.uint8)
     sizes_test = []
@@ -56,7 +55,7 @@ def test_dataloder(TEST_PATH, test_ids, dir_path = '', IMG_CHANNELS=3, IMG_HEIGH
         sizes_test.append([img.shape[0], img.shape[1]])
 
         # Resize image to match training data
-        img = resize(img, (IMG_HEIGHT, IMG_WIDTH), mode='constant', preserve_range=True)
+        # img = resize(img, (IMG_HEIGHT, IMG_WIDTH), mode='constant', preserve_range=True)
 
         # Append image to numpy array for test dataset
         X_test[n] = img

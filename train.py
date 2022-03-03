@@ -21,10 +21,10 @@ train_ids = next(os.walk(TRAIN_PATH))[1]
 test_ids = next(os.walk(TEST_PATH))[1]
 final_test_ids = next(os.walk(FINAL_TEST_PATH))[1]
 
-X_train, Y_train = train_dataloader(TRAIN_PATH, train_ids)
-X_test, sizes_test = test_dataloder(TEST_PATH, test_ids)
+X_train, Y_train = train_dataloader(TRAIN_PATH, train_ids, IMG_CHANNELS=3, IMG_HEIGHT=512, IMG_WIDTH=512)
+X_test, sizes_test = test_dataloder(TEST_PATH, test_ids, IMG_CHANNELS=3, IMG_HEIGHT=512, IMG_WIDTH=512)
 
-model = unet()
+model = unet(512, 512, 3)
 model.summary()
 model.compile(optimizer='adam', loss='binary_crossentropy', metrics=['accuracy'])
 model.summary()
