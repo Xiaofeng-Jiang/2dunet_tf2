@@ -6,7 +6,7 @@ from PIL import Image
 from tqdm import tqdm
 
 root = '/Users/jiangxiaofeng/Downloads/Compressed/stanford/PRE/'
-X_train, Y_train, id_list = generator(root, l_start=0, l_end=300)
+X_train, Y_train, id_list = generator(root, l_start=0, l_end=250)
 
 X_train = np.array(X_train)
 Y_train = np.array(Y_train)
@@ -15,19 +15,20 @@ print(X_train.shape)
 print(Y_train.shape)
 
 
-# np.save('/Users/jiangxiaofeng/Downloads/Compressed/stanford/unet/data2/img_128.npy', X_train)
-# np.save('/Users/jiangxiaofeng/Downloads/Compressed/stanford/unet/data2/mask_128.npy', Y_train)
+np.save('/Users/jiangxiaofeng/Downloads/Compressed/stanford/unet/data3/img_128.npy', X_train)
+np.save('/Users/jiangxiaofeng/Downloads/Compressed/stanford/unet/data3/mask_128.npy', Y_train)
 
-# X_test, Y_test = generator(root, l_start=200, l_end=250)
-#
-# X_test = np.array(X_test)
-# Y_test = np.array(Y_test)
-#
-# print(X_test.shape)
-# print(Y_test.shape)
+X_test, Y_test = generator(root, l_start=250, l_end=300)
 
-# np.save('/Users/jiangxiaofeng/Downloads/Compressed/stanford/unet/data2/img_test_128.npy', X_test)
-# np.save('/Users/jiangxiaofeng/Downloads/Compressed/stanford/unet/data2/mask_test_128.npy', Y_test)
+X_test = np.array(X_test)
+Y_test = np.array(Y_test)
+
+print(X_test.shape)
+print(Y_test.shape)
+
+np.save('/Users/jiangxiaofeng/Downloads/Compressed/stanford/unet/data3/img_test_128.npy', X_test)
+np.save('/Users/jiangxiaofeng/Downloads/Compressed/stanford/unet/data3/mask_test_128.npy', Y_test)
+
 def plot_merge(X_train, Y_train, id_list):
     for i in tqdm(range(len(X_train))):
         mri_gray = X_train[i, ...]
@@ -52,23 +53,6 @@ def plot_merge(X_train, Y_train, id_list):
         im.save('./merge_output/' + id_list[i] + '_' + str(i) + ".jpg", quality=95, subsampling=0)
 
 
-if __name__ == '__main__':
-    plot_merge(X_train, Y_train, id_list)
-# plt.imshow(mri_rgb)
-# plt.xticks([])
-# plt.yticks([])
-# plt.show()
-#
-# # plt.imshow(mask_rgb)
-# # plt.show()
-# #
-# # plt.imshow(mask_red)
-# # plt.show()
-# #
-# # plt.imshow(img_add)
-# # plt.show()
-#
-# plt.imshow(img_add_red)
-# plt.xticks([])
-# plt.yticks([])
-# plt.show()
+# if __name__ == '__main__':
+#     plot_merge(X_train, Y_train, id_list)
+

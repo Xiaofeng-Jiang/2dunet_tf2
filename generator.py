@@ -23,7 +23,7 @@ def generator(mri_root, l_start=0, l_end=10):
     if '.DS_Store' in p_list:
         p_list.remove('.DS_Store')
 
-    remove_list = ['pre-A54', 'pre-B6']  # which mask is wrong
+    remove_list = ['pre-A54', 'pre-B262', 'pre-B104', 'pre-B308', 'pre-C9']  # which mask is wrong
     for rmf in remove_list:
         p_list.remove(rmf)
 
@@ -34,6 +34,7 @@ def generator(mri_root, l_start=0, l_end=10):
         mask_array = sitk.GetArrayFromImage(mask)
 
         mri_path = os.path.join(p_path, 'T2WI')
+        print(id)
         mri_list = sorted(os.listdir(mri_path), key=lambda s: int(s.split('-')[1].split('.')[0]))
 
         for h in range(mask_array.shape[0]):
