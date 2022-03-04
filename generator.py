@@ -29,7 +29,7 @@ def generator(mri_root, l_start=0, l_end=10):
         mask_array = sitk.GetArrayFromImage(mask)
 
         mri_path = os.path.join(p_path, 'T2WI')
-        mri_list = os.listdir(mri_path)
+        mri_list = sorted(os.listdir(mri_path))
 
         for h in range(mask_array.shape[0]):
             if mask_array[h, ...].sum() > 100:
