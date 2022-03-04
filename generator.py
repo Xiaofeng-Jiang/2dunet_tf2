@@ -34,7 +34,7 @@ def generator(mri_root, l_start=0, l_end=10):
         mask_array = sitk.GetArrayFromImage(mask)
 
         mri_path = os.path.join(p_path, 'T2WI')
-        print(id)
+        # print(id)
         mri_list = sorted(os.listdir(mri_path), key=lambda s: int(s.split('-')[1].split('.')[0]))
 
         for h in range(mask_array.shape[0]):

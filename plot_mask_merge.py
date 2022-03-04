@@ -18,7 +18,7 @@ print(Y_train.shape)
 np.save('/Users/jiangxiaofeng/Downloads/Compressed/stanford/unet/data3/img_128.npy', X_train)
 np.save('/Users/jiangxiaofeng/Downloads/Compressed/stanford/unet/data3/mask_128.npy', Y_train)
 
-X_test, Y_test = generator(root, l_start=250, l_end=300)
+X_test, Y_test, id_list = generator(root, l_start=250, l_end=300)
 
 X_test = np.array(X_test)
 Y_test = np.array(Y_test)
