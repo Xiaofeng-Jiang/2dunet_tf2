@@ -4,10 +4,10 @@ import os
 import SimpleITK as sitk
 import numpy as np
 import matplotlib.pyplot as plt
+from natsort import natsorted
 
 
 def generator(mri_root, l_start=0, l_end=10):
-
     X_train = []
     Y_train = []
     id_list = []
@@ -23,7 +23,7 @@ def generator(mri_root, l_start=0, l_end=10):
     if '.DS_Store' in p_list:
         p_list.remove('.DS_Store')
 
-    remove_list = ['pre-A54', 'pre-B6'] # which mask is wrong
+    remove_list = ['pre-A54', 'pre-B6']  # which mask is wrong
     for rmf in remove_list:
         p_list.remove(rmf)
 
@@ -34,12 +34,12 @@ def generator(mri_root, l_start=0, l_end=10):
         mask_array = sitk.GetArrayFromImage(mask)
 
         mri_path = os.path.join(p_path, 'T2WI')
-        mri_list = sorted(os.listdir(mri_path))
+        mri_list = sorted(os.listdir(mri_path), key=lambda s: int(s.split('-')[1].split('.')[0]))
 
         for h in range(mask_array.shape[0]):
             if mask_array[h, ...].sum() > 100:
                 mask_single_array = mask_array[h, :, :]
-                mri_file = os.path.join(mri_path, mri_list[-h-1])
+                mri_file = os.path.join(mri_path, mri_list[-h - 1])
                 mri = sitk.ReadImage(mri_file)
                 mri_array = sitk.GetArrayFromImage(mri)
                 mri_single_array = mri_array[0, ...]
