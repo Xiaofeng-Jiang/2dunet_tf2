@@ -4,7 +4,7 @@ import cv2
 import matplotlib.pyplot as plt
 
 root = '/Users/jiangxiaofeng/Downloads/Compressed/stanford/PRE/'
-X_train, Y_train = generator(root, l_start=0, l_end=10)
+X_train, Y_train, id_list = generator(root, l_start=0, l_end=10)
 
 X_train = np.array(X_train)
 Y_train = np.array(Y_train)

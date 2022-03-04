@@ -10,6 +10,7 @@ def generator(mri_root, l_start=0, l_end=10):
 
     X_train = []
     Y_train = []
+    id_list = []
     # single_ori_root = '/Users/jiangxiaofeng/Downloads/Compressed/stanford/unet/single_ori'
     # single_mask_root = '/Users/jiangxiaofeng/Downloads/Compressed/stanford/unet/single_mask'
     #
@@ -21,6 +22,10 @@ def generator(mri_root, l_start=0, l_end=10):
     p_list = list(os.listdir(mri_root))
     if '.DS_Store' in p_list:
         p_list.remove('.DS_Store')
+
+    remove_list = ['pre-A54', 'pre-B6'] # which mask is wrong
+    for rmf in remove_list:
+        p_list.remove(rmf)
 
     for i, id in enumerate(p_list[l_start:l_end]):
         p_path = os.path.join(mri_root, id)
@@ -34,7 +39,7 @@ def generator(mri_root, l_start=0, l_end=10):
         for h in range(mask_array.shape[0]):
             if mask_array[h, ...].sum() > 100:
                 mask_single_array = mask_array[h, :, :]
-                mri_file = os.path.join(mri_path, mri_list[-h])
+                mri_file = os.path.join(mri_path, mri_list[-h-1])
                 mri = sitk.ReadImage(mri_file)
                 mri_array = sitk.GetArrayFromImage(mri)
                 mri_single_array = mri_array[0, ...]
@@ -44,5 +49,6 @@ def generator(mri_root, l_start=0, l_end=10):
 
                 X_train.append(np.expand_dims(mri_1, axis=-1))
                 Y_train.append(np.expand_dims(mask_1, axis=-1))
+                id_list.append(id)
 
-    return X_train, Y_train
+    return X_train, Y_train, id_list
